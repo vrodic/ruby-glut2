@@ -124,14 +124,14 @@ void *glut_MainLoop0(void *ignored) {
 }
 
 static VALUE
-glut_MainLoop(void) {
+glut_MainLoop(self) VALUE self; {
   rb_thread_call_without_gvl(glut_MainLoop0, NULL, NULL, NULL);
 
   return Qnil; /* never reached */
 }
 
 static VALUE
-glut_CheckLoop(void) {
+glut_CheckLoop(self) VALUE self; {
   rb_warn("calling fake CheckLoop implementation which never returns");
 
   glut_MainLoop();
