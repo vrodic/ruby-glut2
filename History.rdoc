@@ -1,3 +1,7 @@
+=== 8.4.0 / 2024-09-08
+
+* Add as new gem with modern Ruby 3.3 compatibility
+
 === 8.3.0 / 2017-05-30
 
 * Add ruby-2.4 to binary windows gems and remove ruby-1.9.

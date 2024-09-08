@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # -*-ruby-*-
 #
 # Copyright (C) 2006 John M. Gabriele <jmg3000@gmail.com>
@@ -18,9 +17,9 @@
 require 'hoe'
 require 'rake/extensiontask'
 
-hoe = Hoe.spec 'glut' do
+hoe = Hoe.spec 'glut2' do
   developer 'Eric Hodel', 'drbrain@segment7.net'
-  developer 'Lars Kanis',  'lars@greiz-reinsdorf.de'
+  developer 'Lars Kanis', 'lars@greiz-reinsdorf.de'
   developer 'Blaž Hrastnik', 'speed.the.bboy@gmail.com'
   developer 'Alain Hoang', ''
   developer 'Jan Dvorak',  ''
@@ -36,9 +35,9 @@ hoe = Hoe.spec 'glut' do
   extra_dev_deps << ['mini_portile2', '~> 2.1']
 
   self.spec_extras = {
-    :extensions            => %w[ext/glut/extconf.rb],
-    :required_ruby_version => '>= 1.9.2',
-    :metadata              => {'msys2_mingw_dependencies' => 'freeglut'},
+    extensions: %w[ext/glut/extconf.rb],
+    required_ruby_version: '>= 1.9.2',
+    metadata: { 'msys2_mingw_dependencies' => 'freeglut' }
   }
 end
 
@@ -46,16 +45,15 @@ Rake::ExtensionTask.new 'glut', hoe.spec do |ext|
   ext.lib_dir = 'lib/glut'
 
   ext.cross_compile = true
-  ext.cross_platform = ['x86-mingw32', 'x64-mingw32']
+  ext.cross_platform = %w[x86-mingw32 x64-mingw32]
   ext.cross_config_options += [
-    "--enable-win32-cross",
+    '--enable-win32-cross'
   ]
   ext.cross_compiling do |spec|
     # The fat binary gem doesn't depend on the freeglut package, since it bundles the library.
     spec.metadata.delete('msys2_mingw_dependencies')
   end
 end
-
 
 # To reduce the gem file size strip mingw32 dlls before packaging
 ENV['RUBY_CC_VERSION'].to_s.split(':').each do |ruby_version|
@@ -68,12 +66,12 @@ ENV['RUBY_CC_VERSION'].to_s.split(':').each do |ruby_version|
   end
 end
 
-desc "Build windows binary gems per rake-compiler-dock."
-task "gem:windows" do
-  require "rake_compiler_dock"
+desc 'Build windows binary gems per rake-compiler-dock.'
+task 'gem:windows' do
+  require 'rake_compiler_dock'
   RakeCompilerDock.sh <<-EOT
     rake cross native gem MAKE='nice make -j`nproc`'
   EOT
 end
 
-task :test => :compile
+task test: :compile
