@@ -19,6 +19,11 @@ Glut bindings for OpenGL. To be used with the {opengl}[https://github.com/larska
 
   gem install glut
 
+== Compiling and publishing
+
+    rake compile
+    rake release VERSION=8.4.1 # desired version here
+
 == Cross compiling for Windows
 
 Using rake-compiler a cross compiled opengl gem can be build on a Linux or MacOS X
